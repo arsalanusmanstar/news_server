@@ -1,10 +1,11 @@
 const cors = require('cors')
 const express = require('express');
 ;const MongoClient = require('mongodb').MongoClient
-const { authorGet } = require('./controllers/author/authorGet');
-const { authorUpdate } = require('./controllers/author/authorUpdate');
-const { authorDelete } = require('./controllers/author/authorDelete');
-const { authorInsert } = require('./controllers/author/authorInsert');
+const { postGet } = require('./controllers/post/postGet');
+const { postUpdate } = require('./controllers/post/postUpdate');
+const { postDelete } = require('./controllers/post/postDelete');
+const { postInsert } = require('./controllers/post/postInsert');
+
 
 const app = express();
 
@@ -22,11 +23,11 @@ app.get('/',(req,res) =>{
     res.send('Server is ok')
 });
 
-app.get('/author',authorGet(connection))
-app.put('/author',authorUpdate(connection))
-app.post('/author',authorInsert(connection))
-app.delete('/author',authorDelete(connection))
+app.get('/post',postGet(connection))
+app.put('/post',postUpdate(connection))
+app.post('/post',postInsert(connection))
+app.delete('/post',postDelete(connection))
 
-app.listen(process.env.PORT || 5000 ,()=>{
+app.listen(process.env.PORT || 5001 ,()=>{
     console.log(`I am running!!! on ${process.env.PORT}`)
 })
