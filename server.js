@@ -28,6 +28,6 @@ app.put('/post',postUpdate(connection))
 app.post('/post',postInsert(connection))
 app.delete('/post',postDelete(connection))
 
-app.listen(process.env.PORT || 5001 ,()=>{
+app.listen(process.env.PORT || 5002 ,()=>{
     console.log(`I am running!!! on ${process.env.PORT}`)
 })
