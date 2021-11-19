@@ -15,16 +15,33 @@ const postGet=(connection)=>(req,res)=>{
     connection.then(client => {
     const post = client.db('news').collection('post')  
 
-    const quotesCollection = post.find(filter).toArray()
-    .then(results => {
-    try {
-        res.send(results);
-      } catch (error) {
-        res.status(500).send(error);
-      }
-    })
-    .catch(error => console.error(error))
-    })
+    const quotesCollection = post.aggregate([      
+        {$lookup:
+          {
+            from: "category",
+            localField: "category",
+            foreignField: "_id",
+            as: "category"
+          }},
+          {$lookup:
+            {
+              from: "author",
+              localField: "author",
+              foreignField: "_id",
+              as: "author"
+            }},
+            {$unwind: '$author'},
+            {$unwind: '$category'},
+            {$match :  filter} ]).toArray()
+        .then(results => {
+          try {
+              res.send(results);
+            } catch (error) {
+              res.status(500).send(error);
+            }
+          })
+          .catch(error => console.error(error))
+          })
 }
 
 module.exports={
