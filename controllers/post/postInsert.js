@@ -24,7 +24,7 @@ const  postInsert=(connection)=>(req,res)=>{
     seo?filter['seo']=seo:0
     
     
-    res.send(req.body);
+   
 
     connection.then(client => {
     const post = client.db('news').collection('post')  
