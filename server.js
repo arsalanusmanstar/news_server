@@ -22,12 +22,13 @@ app.use(cors())
 app.get('/',(req,res) =>{
     res.send('Server is ok')
 });
+app.get('/author',postGet(connection))
 
 app.get('/post',postGet(connection))
 app.put('/post',postUpdate(connection))
 app.post('/post',postInsert(connection))
 app.delete('/post',postDelete(connection))
 
-app.listen(process.env.PORT || 5002 ,()=>{
+app.listen(process.env.PORT || 5000 ,()=>{
     console.log(`I am running!!! on ${process.env.PORT}`)
 })
