@@ -27,30 +27,30 @@ const authorGet=(connection)=>(req,res)=>{
         result.posts.map(post =>{
           post['thumbnail']={
             '__typename': 'ImageSharp',
-            'ImageSharp_hero': {
+            'ImageSharp_vertical': {
               'layout': 'constrained',
               'backgroundColor': '#787898',
               'images': {
                 'fallback': {
                   'src': post.featuredImage,
                   'srcSet': '',
-                  'sizes': '(min-width: 1600px) 1600px, 100vw'
+                  'sizes': '(min-width: 380px) 380px, 100vw'
                 },
                 'sources': [
                   {
                     'srcSet': post.featuredImage,
                     'type': 'image/jpg',
-                    'sizes': '(min-width: 1600px) 1600px, 100vw'
+                    'sizes': '(min-width: 380px) 380px, 100vw'
                   }
                 ]
               },
-              'width': 1600,
-              'height': 650
+              'width': 380,
+              'height': 290
             }
           }
         })
       })
-      
+
         res.send(results);
       } catch (error) {
         res.status(500).send(error);
