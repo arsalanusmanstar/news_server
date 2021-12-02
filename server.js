@@ -27,7 +27,6 @@ app.use(cors())
 app.get('/',(req,res) =>{
     res.send('Server is ok')
 });
-app.get('/author',postGet(connection))
 
 app.get('/post',postGet(connection))
 app.put('/post',postUpdate(connection))
@@ -37,8 +36,6 @@ app.get('/author',authorGet(connection))
 app.put('/author',authorUpdate(connection))
 app.post('/author',authorDelete(connection))
 app.delete('/author',authorInsert(connection))
-
-
 
 app.listen(process.env.PORT || 5000 ,()=>{
     console.log(`I am running!!! on ${process.env.PORT}`)

@@ -10,7 +10,16 @@ const authorGet=(connection)=>(req,res)=>{
     connection.then(client => {
     const author = client.db('news').collection('author')  
 
-    const quotesCollection = author.find(filter).toArray()
+    const quotesCollection = author.aggregate([      
+      {$lookup:
+          {
+            from: "post",
+            localField: "_id",
+            foreignField: "author",
+            as: "posts"
+          }},
+      //     {$unwind: '$post'},
+          {$match :  filter} ]).toArray()
     .then(results => {
     try {
         res.send(results);
