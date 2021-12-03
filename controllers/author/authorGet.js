@@ -1,6 +1,6 @@
 const authorGet=(connection)=>(req,res)=>{ 
     const {id,name}=req.body
-    
+
     const filter = {}
 
     id? filter['id']=id : 0
@@ -21,7 +21,6 @@ const authorGet=(connection)=>(req,res)=>{
     .then(results => {
       
       try {
-
       results.map(result =>{
         result.posts.map(post =>{
           post['thumbnail']={
