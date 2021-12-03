@@ -9,6 +9,7 @@ const { authorGet } = require('./controllers/author/authorGet');
 const { authorUpdate } = require('./controllers/author/authorUpdate');
 const { authorDelete } = require('./controllers/author/authorDelete');
 const { authorInsert } = require('./controllers/author/authorInsert');
+const { tagsGet } = require('./controllers/tagsGet');
 const { categoryGet } = require('./controllers/categoryGet');
 
 
@@ -29,6 +30,8 @@ app.get('/',(req,res) =>{
     res.send('Server is ok')
 });
 app.get('/category',categoryGet(connection))
+
+app.get('/tags',tagsGet(connection))
 
 app.get('/post',postGet(connection))
 app.put('/post',postUpdate(connection))
