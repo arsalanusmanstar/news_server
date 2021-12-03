@@ -9,6 +9,7 @@ const { authorGet } = require('./controllers/author/authorGet');
 const { authorUpdate } = require('./controllers/author/authorUpdate');
 const { authorDelete } = require('./controllers/author/authorDelete');
 const { authorInsert } = require('./controllers/author/authorInsert');
+const { categoryGet } = require('./controllers/categoryGet');
 
 
 
@@ -27,6 +28,7 @@ app.use(cors())
 app.get('/',(req,res) =>{
     res.send('Server is ok')
 });
+app.get('/category',categoryGet(connection))
 
 app.get('/post',postGet(connection))
 app.put('/post',postUpdate(connection))
