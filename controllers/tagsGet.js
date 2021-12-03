@@ -15,6 +15,33 @@ const tagsGet=(connection)=>(req,res)=>{
 
     const quotesCollection = post.aggregate().toArray()
     .then(results => {
+
+      result.posts.map(post =>{
+        post['thumbnail']={
+          '__typename': 'ImageSharp',
+          'ImageSharp_vertical': {
+            'layout': 'constrained',
+            'backgroundColor': '#787898',
+            'images': {
+              'fallback': {
+                'src': post.featuredImage,
+                'srcSet': '',
+                'sizes': '(min-width: 380px) 380px, 100vw'
+              },
+              'sources': [
+                {
+                  'srcSet': post.featuredImage,
+                  'type': 'image/jpg',
+                  'sizes': '(min-width: 380px) 380px, 100vw'
+                }
+              ]
+            },
+            'width': 380,
+            'height': 290
+          }
+        }
+      })
+      
       results.map(result =>{ 
         result.tags.split(',').map(result1 =>{
           tags.includes(result1.toLowerCase())? (0) :
