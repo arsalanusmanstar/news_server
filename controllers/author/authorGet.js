@@ -1,7 +1,6 @@
 const authorGet=(connection)=>(req,res)=>{ 
     const {id,name}=req.body
-
-    // console.log( id? 'a': id? {"id":id} : 1)
+    
     const filter = {}
 
     id? filter['id']=id : 0

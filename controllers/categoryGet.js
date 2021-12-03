@@ -22,6 +22,34 @@ const categoryGet=(connection)=>(req,res)=>{
     .then(results => {
       
       try {
+      results.map(result =>{
+        result.posts.map(post =>{
+          post['thumbnail']={
+            '__typename': 'ImageSharp',
+            'ImageSharp_vertical': {
+              'layout': 'constrained',
+              'backgroundColor': '#787898',
+              'images': {
+                'fallback': {
+                  'src': post.featuredImage,
+                  'srcSet': '',
+                  'sizes': '(min-width: 380px) 380px, 100vw'
+                },
+                'sources': [
+                  {
+                    'srcSet': post.featuredImage,
+                    'type': 'image/jpg',
+                    'sizes': '(min-width: 380px) 380px, 100vw'
+                  }
+                ]
+              },
+              'width': 380,
+              'height': 290
+            }
+          }
+        })
+      })
+
         res.send(results);
       } catch (error) {
         res.status(500).send(error);
