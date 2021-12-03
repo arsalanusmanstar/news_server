@@ -47,6 +47,8 @@ const tagsGet=(connection)=>(req,res)=>{
           tags.includes(result1.toLowerCase())? (0) :
         (
           respons.push({
+
+            "name":result1.toLowerCase() ,
             'tag':result1.toLowerCase(),
             'slug': '/tags/'+result1.toLowerCase(),
             'posts':[]
