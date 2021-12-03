@@ -49,6 +49,7 @@ const tagsGet=(connection)=>(req,res)=>{
           respons.push({
 
             "name":'#'+result1.toLowerCase() ,
+            'tag':result1.toLowerCase(),
             'slug': '/tag/'+result1.toLowerCase(),
             'posts':[]
           }),
