@@ -1,20 +1,21 @@
-const authorGet=(connection)=>(req,res)=>{ 
+const categoryGet=(connection)=>(req,res)=>{ 
     const {id,name}=req.body
 
+    // console.log( id? 'a': id? {"id":id} : 1)
     const filter = {}
 
     id? filter['id']=id : 0
     name? filter['name']=name : 0
 
     connection.then(client => {
-    const author = client.db('news').collection('author')  
+    const category = client.db('news').collection('category')  
 
-    const quotesCollection = author.aggregate([      
+    const quotesCollection = category.aggregate([      
       {$lookup:
           {
             from: "post",
             localField: "_id",
-            foreignField: "author",
+            foreignField: "category",
             as: "posts"
           }},
           {$match :  filter} ]).toArray()
@@ -59,5 +60,5 @@ const authorGet=(connection)=>(req,res)=>{
 }
 
 module.exports={
-  authorGet:authorGet
+  categoryGet:categoryGet
 }

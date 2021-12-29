@@ -1,8 +1,8 @@
-const postGet=(connection)=>(req,res)=>{ 
+const blogPostGet=(connection)=>(req,res)=>{ 
     //const {title,link,description,excerpt,featuredImage,featured,category,author,tags}=req.body
-  
+    var id=1;
 
-    const filter = {}
+    const filter = {'category._id': ''+id}
     
     
     connection.then(client => {
@@ -41,5 +41,5 @@ const postGet=(connection)=>(req,res)=>{
 }
 
 module.exports={
-  postGet:postGet
+  blogPostGet:blogPostGet
 }

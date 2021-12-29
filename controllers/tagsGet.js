@@ -1,42 +1,36 @@
-const authorGet=(connection)=>(req,res)=>{ 
+
+const tagsGet=(connection)=>(req,res)=>{ 
     const {id,name}=req.body
 
     const filter = {}
+    const tags=[]
+    const posts={}
+    respons=[]
 
     id? filter['id']=id : 0
     name? filter['name']=name : 0
 
     connection.then(client => {
-    const author = client.db('news').collection('author')  
+    const post = client.db('news').collection('post')  
 
-    const quotesCollection = author.aggregate([      
-      {$lookup:
-          {
-            from: "post",
-            localField: "_id",
-            foreignField: "author",
-            as: "posts"
-          }},
-          {$match :  filter} ]).toArray()
+    const quotesCollection = post.aggregate().toArray()
     .then(results => {
-      
-      try {
+
       results.map(result =>{
-        result.posts.map(post =>{
-          post['thumbnail']={
+          result['thumbnail']={
             '__typename': 'ImageSharp',
             'ImageSharp_vertical': {
               'layout': 'constrained',
               'backgroundColor': '#787898',
               'images': {
                 'fallback': {
-                  'src': post.featuredImage,
+                  'src': result.featuredImage,
                   'srcSet': '',
                   'sizes': '(min-width: 380px) 380px, 100vw'
                 },
                 'sources': [
                   {
-                    'srcSet': post.featuredImage,
+                    'srcSet': result.featuredImage,
                     'type': 'image/jpg',
                     'sizes': '(min-width: 380px) 380px, 100vw'
                   }
@@ -46,10 +40,32 @@ const authorGet=(connection)=>(req,res)=>{
               'height': 290
             }
           }
+      })
+
+      results.map(result =>{ 
+        result.tags.split(',').map(result1 =>{
+          tags.includes(result1.toLowerCase())? (0) :
+        (
+          respons.push({
+
+            "name":'#'+result1.toLowerCase() ,
+            'tag':result1.toLowerCase(),
+            'slug': '/tag/'+result1.toLowerCase(),
+            'posts':[]
+          }),
+          tags.push(result1.toLowerCase()),
+          posts[result1.toLowerCase()]= []
+        )
+        posts[result1.toLowerCase()].push(result)
         })
       })
 
-        res.send(results);
+      respons.map(result =>{ 
+        result.posts=posts[result.tag]
+      })
+    
+      try {
+        res.send(respons);
       } catch (error) {
         res.status(500).send(error);
       }
@@ -59,5 +75,5 @@ const authorGet=(connection)=>(req,res)=>{
 }
 
 module.exports={
-  authorGet:authorGet
+  tagsGet:tagsGet
 }
