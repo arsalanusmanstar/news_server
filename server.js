@@ -50,10 +50,7 @@ app.post('/author',authorDelete(connection))
 app.delete('/author',authorInsert(connection))
 
 
-const hostname = '127.0.0.1';
-const port = 3001;
 
-
-app.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
-});
+app.listen(process.env.PORT || 5001 ,()=>{
+  console.log(`I am running!!! on ${process.env.PORT}`)
+})
