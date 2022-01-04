@@ -43,7 +43,7 @@ const tagsGet=(connection)=>(req,res)=>{
       // })
 
       results.map(result =>{ 
-        result.tags.split(' ').map(result1 =>{
+        result.tags.split(',').map(result1 =>{
           tags.includes(result1.toLowerCase())? (0) :
         (
           respons.push({
