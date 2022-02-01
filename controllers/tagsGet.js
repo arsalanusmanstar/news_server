@@ -12,12 +12,14 @@ const tagsGet=(connection)=>(req,res)=>{
 
     connection.then(client => {
     const post = client.db('news').collection('post')  
-
+    
     const quotesCollection = post.aggregate().toArray()
-    .then(results => {
 
-  
+    .then(results => {
+    
       results.map(result =>{ 
+       
+       
         result['thumbnail']={
                 '__typename': 'ImageSharp',
                 'ImageSharp_vertical': {
@@ -41,6 +43,8 @@ const tagsGet=(connection)=>(req,res)=>{
                   'height': 290
                 }
               }
+              if(result.category=='1')
+              {  
         result.tags.split(',').map(result1 =>{
           tags.includes(result1.toLowerCase())? (0) :
         (
@@ -54,8 +58,11 @@ const tagsGet=(connection)=>(req,res)=>{
           tags.push(result1.toLowerCase()),
           posts[result1.toLowerCase()]= []
         )
+      
        posts[result1.toLowerCase()].push(result)
+        
         })
+      }
       })
 
       respons.map(result =>{ 
@@ -69,6 +76,7 @@ const tagsGet=(connection)=>(req,res)=>{
       } catch (error) {
         res.status(500).send(error);
       }
+    
     })
     .catch(error => console.error(error))
     })
