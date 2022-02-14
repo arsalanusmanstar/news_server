@@ -1,6 +1,6 @@
 const cors = require('cors')
 const express = require('express');
-var http = require("http");
+
 const MongoClient = require('mongodb').MongoClient
 const { postGet } = require('./controllers/post/postGet');
 const {newsPostGet} = require('./controllers/post/newsPostGet');
@@ -50,10 +50,6 @@ app.put('/author',authorUpdate(connection))
 app.post('/author',authorDelete(connection))
 app.delete('/author',authorInsert(connection))
 
-
-setInterval(function() {
-  http.get("https://newsserverapi.herokuapp.com");
-}, 300000); // every 5 minutes (300000)
 
 
 app.listen(process.env.PORT || 5001 ,()=>{
