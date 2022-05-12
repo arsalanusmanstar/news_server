@@ -5,6 +5,7 @@ const MongoClient = require('mongodb').MongoClient
 const { postGet } = require('./controllers/post/postGet');
 const {newsPostGet} = require('./controllers/post/newsPostGet');
 const {blogPostGet} = require('./controllers/post/blogPostGet');
+const {webPostGet} = require('./controllers/post/webPostGet');
 const { postUpdate } = require('./controllers/post/postUpdate');
 const { postDelete } = require('./controllers/post/postDelete');
 const { postInsert } = require('./controllers/post/postInsert');
@@ -39,7 +40,7 @@ app.get('/tags',tagsGet(connection))
 app.get('/post',postGet(connection))
 app.get('/newsPost',newsPostGet(connection))
 app.get('/blogPost',blogPostGet(connection))
-
+app.get('/webPost',webPostGet(connection))
 
 
 app.put('/post',postUpdate(connection))
